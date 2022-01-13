@@ -2,6 +2,8 @@
 
 *Hopefully, this helps solve any issues surrounding the use of MacOS M1 machines in time for those people to get involved in the course as soon as possible.*
 
+*Note: I have [included a set of audioless videos](#videos) that demonstrate the process that is outlined in §3; as perhaps it's helpful to see, rather than to read.*
+
 #### 1. Introduction
 
 The purpose<sup><a href="fn1">1</a></sup> of this document is to assist plutus pioneer students encountering problems with [plutus-apps](https://github.com/input-output-hk/plutus-apps) build procedures due to their preference to use MacOS as a primary operating system for the course. The overarching goal is to ensure that individuals who choose to use the M1 RISC chips from Apple are not penalised for their choice of hardware, situating all enrollees on an equal footing.
@@ -175,7 +177,7 @@ cd plutus-playground-client
 npm run start
 ```
 
-#### 4. Recordings Of The Procedure
+<h3 id="videos">Recordings Of The Procedure</h3>
 
 *These are really boring, but in case you would rather watch the procedure:*
 
