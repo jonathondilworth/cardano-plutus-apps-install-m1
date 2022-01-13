@@ -1,30 +1,46 @@
-# cardano-plutus-apps-install-m1
+## PPP: Local Playground (MacOS M1, 2020)
 
-some useful infos:
-https://cardano.stackexchange.com/questions/6287/lessons-learned-setting-up-plutus-playground-feedback-welcome
+*Hopefully this helps to solve any issues surrounding the use of MacOS M1 machines in time for those people to get involved in the course as soon as possible.*
 
-https://docs.plutus-community.com/docs/setup/MacOS.html (do not use the "plutus" repo! instead use "plutus-apps")
+#### 1. Introduction
 
-For Intel Macs: https://github.com/Til-D/cardano-plutus
+The purpose<sup><a href="fn1">1</a></sup> of this document is to assit plutus pioneer students encountering problems with [plutus-apps](https://github.com/input-output-hk/plutus-apps) build procedures due to their preference to use MacOS as a primary operating system for the course. The overarching goal is to ensure that individuals who choose to use the M1 RISC chips from Apple are not penalised for their choice of hardware, situating all enrollees on an equal footing.
+
+Having spent several hours pouring over this myself, I was unable to provide effective assistance to any struggling peers - a couple of hours sleep later, I thought I ought to at least share the procedure that seemed to work for me.
+
+#### 2. Reccomended Reading
+
+* Renzwo provided the initial materials (specifically for M1 chips) that seemed to solve the build issues for me: [https://github.com/renzwo/cardano-plutus-apps-install-m1](https://github.com/renzwo/cardano-plutus-apps-install-m1) - I pretty much followed these instructions, but also restarted my machine a number of times.
+* There appears to be some variance in what works on different builds, XiTouch has produced a StackExchange post on some of the issues students encountered today: [https://cardano.stackexchange.com/questions/6287/lessons-learned-setting-up-plutus-playground-feedback-welcome](https://cardano.stackexchange.com/questions/6287/lessons-learned-setting-up-plutus-playground-feedback-welcome)
 
 
-## not finished yet, see discord
+#### 3. The Procedure That Seemed To Work For Me
 
+*Taken mainly from Renzwos repo.*
 
-## Step by step
+This worked for me, as you will see in the video links provided below. Hopefully it'll work for you, but there are no garuntees.
 
-1
-```console
+**3.1. Installing Nix**
+
+```
 sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
 ```
-2 restart terminal
 
-3
-```console
-sudo nano /etc/nix/nix.conf
+**3.2. Close Your Terminal Window / Restart Your Machine**
+
+As has been explained with the [post by XiTouch](https://cardano.stackexchange.com/questions/6287/lessons-learned-setting-up-plutus-playground-feedback-welcome).
+
+**3.3. Modify Your Nix Configuration**
+
+The file can be found here:
+
 ```
-4 be sure these lines are all inside the file
-```console
+sudo vim /etc/nix/nix.conf
+```
+
+Copy & pasted from Renzwo, this is my exact config:
+
+```
 build-users-group = nixbld
 
 substituters        = https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/
@@ -38,41 +54,98 @@ extra-sandbox-paths = /System/Library/Frameworks /System/Library/PrivateFramewor
 experimental-features = nix-command
 extra-experimental-features = flakes
 ```
-5 restart mac
 
-6 clone the right repository! not the ...plutus one, it needs to be the ...plutus-apps repo:
-```console
+**3.4. Restart Your Machine**
+
+Seriously.
+
+**3.5. Cloning plutus-apps**
+
+Do not clone iohk/plutus, you want plutus-apps, which **can be found here: [https://github.com/input-output-hk/plutus-apps](https://github.com/input-output-hk/plutus-apps)**
+
+```
 git clone https://github.com/input-output-hk/plutus-apps
 ```
-7 goto folder
-```console
+
+**3.6. Change Directory**
+
+```
 cd plutus-apps/
 ```
-8 checkout latest commit (plz update for yourself)
-```console
+
+**3.7. Git Checkout**
+
+Checkout to the appropriate commit. It may have changed by this time, so please double check: [https://github.com/input-output-hk/plutus-apps](https://github.com/input-output-hk/plutus-apps)
+
+```
 git checkout 7f53f18dfc788bf6aa929f47d840efa1247e11fd
 ```
-9 build the server
-```console
+
+**3.8. Playground Server Build**
+
+Attempt to build the server (good luck).
+
+```
 nix-build -A plutus-playground.server
 ```
-10 build the client
-```console
-nix-build -A plutus-playground.client
+**3.9. (Optional) Restart Your Machine**
+
+I don't think I restarted the first time round, but after reading the StackExchange post, I would I would close my terminal window and restart the machine.
+
+**3.10. Change Directory**
+
+Back To plutus-apps:
+
 ```
-11 start nix shell (takes some time)
-```console
+cd ~/plutus-apps/
+```
+
+*This is where we deviate a little.*
+
+**3.11. Start A Nix Shell**
+
+```
 nix-shell
 ```
-12 goto server dir and start server
-```console
+
+**3.12. Build Client**
+
+```
+nix-build -A plutus-playground.client
+```
+
+**3.13. Open A New Nix Shell**
+
+Go ahead and open a new terminal window, change directory to:
+
+```
+cd ~/plutus-apps
+```
+
+and start a nix-shell:
+
+```
+nix-shell
+```
+
+**3.14. Change Directory (& start server)**
+
+To the server:
+
+```
 cd plutus-playground-server
+```
+and
+
+```
 plutus-playground-server
 ```
-sometimes the server will not start at first try. try again, second start should work!
 
-13 wait until server is started! you will see something like this
-```console
+**3.15. Patience, is a virtue**
+
+Just wait for the server, don't interupt it because you think it's doing nothing, you should see something like this:
+
+```
 [nix-shell:~/Documents/Source/plutus-apps/plutus-playground-server]$ plutus-playground-server
 plutus-playground-server: for development use only
 [Info] Running: (Nothing,Webserver {_port = 8080, _maxInterpretationTime = 80s})
@@ -83,21 +156,33 @@ Warning: GITHUB_CLIENT_SECRET not set
 Warning: JWT_SIGNATURE not set
 Interpreter ready
 ```
-14 when server is started you can open a second nix-shell in another terminal
-```console
-nix-shell
+
+**3.16. Change Back To Other Terminal Window & NPM**
+
+*global*
+
 ```
-15 in the second terminal with nix-shell run
-```console
 sudo npm install -g npm
 ```
-16 goto client dir and start client
-```console
+
+**3.17. Start The Client**
+
+```
 cd plutus-playground-client
+```
+
+```
 npm run start
 ```
-17 wait until client has started! will take some time.
 
-TODO client still fails because of errors.
+#### 4. Recordings Of The Procedure
 
-should work: https://localhost:8009/ 
+*These are really boring, but in case you would rather watch the procedure:*
+
+1. [Video One](https://youtu.be/OB0OeveN6Ao)
+2. [Video Two](https://youtu.be/QVTmbi1U39Q)
+3. [Video Three](https://youtu.be/qyqfmYUqjP8)
+
+#### credit where credit's due
+
+Thank you Renzwo for the materials in the initial repo. Would have likely been banging my head agaisnt the wall for a little while longer otherwise. Cheers!
