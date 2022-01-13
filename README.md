@@ -1,16 +1,16 @@
 ## PPP: Local Playground (MacOS M1, 2020)
 
-*Hopefully this helps to solve any issues surrounding the use of MacOS M1 machines in time for those people to get involved in the course as soon as possible.*
+*Hopefully, this helps solve any issues surrounding the use of MacOS M1 machines in time for those people to get involved in the course as soon as possible.*
 
 #### 1. Introduction
 
-The purpose<sup><a href="fn1">1</a></sup> of this document is to assit plutus pioneer students encountering problems with [plutus-apps](https://github.com/input-output-hk/plutus-apps) build procedures due to their preference to use MacOS as a primary operating system for the course. The overarching goal is to ensure that individuals who choose to use the M1 RISC chips from Apple are not penalised for their choice of hardware, situating all enrollees on an equal footing.
+The purpose<sup><a href="fn1">1</a></sup> of this document is to assist plutus pioneer students encountering problems with [plutus-apps](https://github.com/input-output-hk/plutus-apps) build procedures due to their preference to use MacOS as a primary operating system for the course. The overarching goal is to ensure that individuals who choose to use the M1 RISC chips from Apple are not penalised for their choice of hardware, situating all enrollees on an equal footing.
 
-Having spent several hours pouring over this myself, I was unable to provide effective assistance to any struggling peers - a couple of hours sleep later, I thought I ought to at least share the procedure that seemed to work for me.
+Having spent several hours pouring over this myself, I could not provide adequate assistance to any struggling peers - a couple of hours sleep later, I thought I ought to share at least the procedure that seemed to work for me.
 
 #### 2. Reccomended Reading
 
-* Renzwo provided the initial materials (specifically for M1 chips) that seemed to solve the build issues for me: [https://github.com/renzwo/cardano-plutus-apps-install-m1](https://github.com/renzwo/cardano-plutus-apps-install-m1) - I pretty much followed these instructions, but also restarted my machine a number of times.
+* Renzwo provided the initial materials (specifically for M1 chips) that seemed to solve the build issues for me: [https://github.com/renzwo/cardano-plutus-apps-install-m1](https://github.com/renzwo/cardano-plutus-apps-install-m1) - I pretty much followed these instructions but also restarted my machine several times.
 * There appears to be some variance in what works on different builds, XiTouch has produced a StackExchange post on some of the issues students encountered today: [https://cardano.stackexchange.com/questions/6287/lessons-learned-setting-up-plutus-playground-feedback-welcome](https://cardano.stackexchange.com/questions/6287/lessons-learned-setting-up-plutus-playground-feedback-welcome)
 
 
@@ -18,7 +18,7 @@ Having spent several hours pouring over this myself, I was unable to provide eff
 
 *Taken mainly from Renzwos repo.*
 
-This worked for me, as you will see in the video links provided below. Hopefully it'll work for you, but there are no garuntees.
+This worked for me, as you will see in the video links below. Hopefully, it'll work for you, but there are no guarantees.
 
 **3.1. Installing Nix**
 
@@ -61,7 +61,7 @@ Seriously.
 
 **3.5. Cloning plutus-apps**
 
-Do not clone iohk/plutus, you want plutus-apps, which **can be found here: [https://github.com/input-output-hk/plutus-apps](https://github.com/input-output-hk/plutus-apps)**
+Do not clone iohk/plutus; you want plutus-apps, which **can be found here: [https://github.com/input-output-hk/plutus-apps](https://github.com/input-output-hk/plutus-apps)**
 
 ```
 git clone https://github.com/input-output-hk/plutus-apps
@@ -75,7 +75,7 @@ cd plutus-apps/
 
 **3.7. Git Checkout**
 
-Checkout to the appropriate commit. It may have changed by this time, so please double check: [https://github.com/input-output-hk/plutus-apps](https://github.com/input-output-hk/plutus-apps)
+Checkout to the appropriate commit. It may have changed by this time, so please double-check: [https://github.com/input-output-hk/plutus-apps](https://github.com/input-output-hk/plutus-apps)
 
 ```
 git checkout 7f53f18dfc788bf6aa929f47d840efa1247e11fd
@@ -90,7 +90,7 @@ nix-build -A plutus-playground.server
 ```
 **3.9. (Optional) Restart Your Machine**
 
-I don't think I restarted the first time round, but after reading the StackExchange post, I would I would close my terminal window and restart the machine.
+I don't think I restarted the first time around, but after reading the StackExchange post, I would close my terminal window and restart the machine.
 
 **3.10. Change Directory**
 
@@ -116,7 +116,7 @@ nix-build -A plutus-playground.client
 
 **3.13. Open A New Nix Shell**
 
-Go ahead and open a new terminal window, change directory to:
+Go ahead and open a new terminal window, change Directory to:
 
 ```
 cd ~/plutus-apps
@@ -141,9 +141,9 @@ and
 plutus-playground-server
 ```
 
-**3.15. Patience, is a virtue**
+**3.15. Patience is a virtue**
 
-Just wait for the server, don't interupt it because you think it's doing nothing, you should see something like this:
+Just wait for the server, don't interrupt it because you think it's doing nothing; you should see something like this:
 
 ```
 [nix-shell:~/Documents/Source/plutus-apps/plutus-playground-server]$ plutus-playground-server
@@ -185,4 +185,4 @@ npm run start
 
 #### credit where credit's due
 
-Thank you Renzwo for the materials in the initial repo. Would have likely been banging my head agaisnt the wall for a little while longer otherwise. Cheers!
+Thank you, Renzwo, for the materials in the initial repo. I would have likely been banging my head against the wall for a little while longer otherwise. Cheers!
